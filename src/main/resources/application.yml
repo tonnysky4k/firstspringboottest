@@ -1,0 +1,39 @@
+spring:
+  datasource:
+    driver-class-name: oracle.jdbc.driver.OracleDriver
+    url: jdbc:oracle:thin:@localhost:1521:orcl
+    username: student
+    password: student
+  thymeleaf:
+    prefix: classpath:/HTML/
+    suffix: .html
+    encoding: UTF-8
+    cache: false
+    servlet:
+      content-type: text/html
+  messages:
+    basename: i18n.local
+server:
+  tomcat:
+    uri-encoding: UTF-8
+  port: 8080
+servlet:
+  multipart:
+    max-request-size: 10MB
+    max-file-size: 10MB
+mybatis:
+  mapper-locations: classpath*:mapper/*Mapper.xml
+  type-aliases-package: com.tonny.first.dao
+pagehelper:
+  helperDialect: oracle
+  reasonable: true
+  offsetAsPageNum: true
+  rowBoundsWithCount: true
+  pageSizeZero: true
+  supportMethodsArguments: false
+  params: pageNum=pageHelperStart;pageSize=pageHelperRows;
+logging:
+  path: E:/tonny/loggings
+  file: tonny.log
+  level:
+    root: info

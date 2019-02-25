@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>student</title>
+  <link href="css/style.css" rel="stylesheet" type="text/css" />
+  <link href="css/select.css" rel="stylesheet" type="text/css" />
+  <script type="text/javascript" src="js/jquery.js"></script>
+  <script type="text/javascript" src="js/jquery.idTabs.min.js"></script>
+  <script type="text/javascript" src="js/select-ui.min.js"></script>
+  <script type="text/javascript" src="editor/kindeditor.js"></script>
+
+</head>
+<script type="text/javascript">
+    function f_ajax()
+    {
+        $.get("/users",function(data,status){
+
+                 var dataObj=$.parseJSON(data);
+                  var sname="name[";
+                  $.each(dataObj,function(i,n){
+                      sname+=n.name+",";
+                  });
+
+                  $("#ajax_json").html(sname);
+                },"JSON");
+    }
+</script>
+<body>
+<form id="stu-form" th:action="@{/addStudent}" th:object="${studentBean}" method="post" >
+<div class="student">
+<ul class="forminfo">
+<li><label>学生id</label><input type="text" class="dfinput" value="10001" th:field="*{id}"></input><i>学生号必须唯一</i></li><br>
+<li><label>学生姓名</label><input type="text" class="dfinput" value="张三丰" th:field="*{sname}"></input><i>学生姓名大于2个字符</i></li><br>
+<li><label>学生年龄</label><input type="text" class="dfinput" value="28" th:field="*{age}"></input></li><br>
+<li><label>学生年级</label><input type="text" class="dfinput" value="03级软件" th:field="*{nj}"></input></li><br>
+<li><label>学生班别</label><input type="text" class="dfinput" value="A班" th:field="*{bb}"></input></li><br>
+<li><label>学生编号</label><input type="text" class="dfinput" value="2003rj0078" th:field="*{sno}"></input></li><br>
+</ul>
+</div>
+<div>
+    <input type="submit" class ="btn" value="提交"/> <br><br>
+    <input type="button" id ="ajax_test"class ="btn" value="ajax" onclick="f_ajax()" />
+</div>
+<div id="ajax_json"> <h2>ajax data will display here!</h2></div>
+</form>
+</body>
+</html>

@@ -1,0 +1,154 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<link href="css/style.css" rel="stylesheet" type="text/css" />
+<link href="css/select.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/jquery.idTabs.min.js"></script>
+<script type="text/javascript" src="js/select-ui.min.js"></script>
+<script type="text/javascript" src="editor/kindeditor.js"></script>
+
+<script type="text/javascript">
+    KE.show({
+        id : 'content7',
+        cssPath : './index.css'
+    });
+  </script>
+  
+<script type="text/javascript">
+$(document).ready(function(e) {
+    $(".select1").uedSelect({
+		width : 345			  
+	});
+	$(".select2").uedSelect({
+		width : 167  
+	});
+	$(".select3").uedSelect({
+		width : 100
+	});
+	$(".tdata td").click(function (){
+        var tdSeq = $(this).parent().find("td").index($(this)[0]);
+        var trSeq = $(this).parent().parent().find("tr").index($(this).parent()[0]);
+        $(this).parent().children('td').each(function (n,i){
+
+        });
+
+	});
+});
+function async_del()
+{
+
+    $.ajax({
+    url:"/deleteuser",
+    type:"post",
+    data:{id:$(".tablelink").parent().parent().children("td:eq(1)").text()},
+    success:function(data){
+                  window.location="/tuser";
+                  }
+    });
+}
+function async_query()
+{
+    $.post("/option",
+      {
+        stype:"fruit"
+      },
+      function(data,status){
+        if(status=='success')
+            $('.select3').empty();
+        var obj= $.parseJSON(data);
+        $.each(obj,function(i,n){
+            $(".select3").append("<option >"+n.sname+"</option>")
+        });
+      },"JSON");
+}
+</script>
+</head>
+
+<body>
+	<div class="place">
+    <span>位置：</span>
+    <ul class="placeul">
+    <li><a href="#">首页</a></li>
+    <li><a href="#">系统设置</a></li>
+    </ul>
+    </div>
+    <div class="formbody">
+  	<div id="tab2" class="tabson">
+    <ul class="seachform">
+    <li><label>综合查询</label><input name="" type="text" class="scinput" /></li>
+    <li><label>指派</label>  
+    <div class="vocation">
+    <select class="select3">
+    <option>全部</option>
+    <option>其他</option>
+    </select>
+    </div>
+    </li>
+    
+    <li><label>重点客户</label>  
+    <div class="vocation">
+    <select class="select3">
+    <option>全部</option>
+    <option>其他</option>
+    </select>
+    </div>
+    </li>
+    
+    <li><label>客户状态</label>  
+    <div class="vocation">
+    <select class="select3">
+    <option>全部</option>
+    <option>其他</option>
+    </select>
+    </div>
+    </li>
+    
+    <li><label>&nbsp;</label><input name="" type="button" class="scbtn" value="查询" onclick="async_query()"/></li>
+    
+    </ul>
+    
+    
+    <table class="tablelist">
+    	<thead>
+    	<tr>
+        <th><input name="" type="checkbox" value="" checked="checked"/></th>
+        <th >编号<i class="sort"><img src="images/px.gif" /></i></th>
+        <th>用户名</th>
+        <th>密码</th>
+        <th>登录状态</th>
+        <th>登录IP</th>
+        <th>操作</th>
+        </tr>
+        </thead>
+        <tbody class="tdata">
+        <tr th:each="user:${users}" >
+        <td ><input name="" type="checkbox" value="" /></td>
+        <td  th:text="${user.id}">20130908</td>
+        <td th:text="${user.name}">王金平幕僚：马英九声明字字见血 人活着没意思</td>
+        <td th:text="${user.password}">admin</td>
+        <td th:text="${user.logstat}">江苏南京</td>
+        <td th:text="${user.ip}">2013-09-09 15:05</td>
+        <td><a href="#" class="tablelink" th:href="@{/user/query(id=${user.id})}">查看</a>
+            <a href="#" class="tablelink" onclick="async_del()"> 删除</a>
+        </td>
+        </tr>
+        </tbody>
+    </table>
+
+    </div>
+	</div> 
+ 
+	<script type="text/javascript"> 
+      $("#usual1 ul").idTabs(); 
+    </script>
+    
+    <script type="text/javascript">
+	$('.tablelist tbody tr:odd').addClass('odd');
+	</script>
+    </div>
+</body>
+
+</html>

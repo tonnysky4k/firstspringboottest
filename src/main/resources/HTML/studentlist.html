@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<link href="css/style.css" rel="stylesheet" type="text/css" />
+<link href="css/select.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/jquery.idTabs.min.js"></script>
+<script type="text/javascript" src="js/select-ui.min.js"></script>
+<script type="text/javascript" src="editor/kindeditor.js"></script>
+
+<script type="text/javascript">
+    KE.show({
+        id : 'content7',
+        cssPath : './index.css'
+    });
+  </script>
+
+<script type="text/javascript">
+$(document).ready(function(e) {
+    $(".select1").uedSelect({
+		width : 345
+	});
+	$(".select2").uedSelect({
+		width : 167
+	});
+	$(".select3").uedSelect({
+		width : 100
+	});
+});
+function f_ajax(){
+    $.get("/users",function(data,status){
+                     var dataObj=$.parseJSON(data);
+                     $(".select3").empty();
+                      var sname="name[";
+                      $.each(dataObj,function(i,n){
+                          sname+=n.name+",";
+                          $(".select3").append("<option value='"+n.name+"'>"+n.name+"</option>");
+                      });
+                      alert(sname);
+                    },"JSON");
+}
+</script>
+</head>
+
+<body>
+<div class="place">
+    <span>位置：</span>
+    <ul class="placeul">
+    <li><a href="#">首页</a></li>
+    <li><a href="#">系统设置</a></li>
+    </ul>
+    </div>
+    <div class="formbody">
+  	<div id="tab2" class="tabson">
+  <ul class="seachform">
+    <li><label>综合查询</label><input name="" type="text" class="scinput" /></li>
+    <li><label>指派</label>
+    <div class="vocation">
+    <select class="select3">
+    <option>全部</option>
+    <option>其他</option>
+    </select>
+    </div>
+    </li>
+
+    <li><label>重点客户</label>
+    <div class="vocation">
+    <select class="select3">
+    <option>全部</option>
+    <option>其他</option>
+    </select>
+    </div>
+    </li>
+
+    <li><label>客户状态</label>
+    <div class="vocation">
+    <select class="select3">
+
+    </select>
+    </div>
+    </li>
+
+    <li><label>&nbsp;</label><input name="" type="button" class="scbtn" value="查询" onclick="f_ajax()"/></li>
+
+    </ul>
+    <table class="tablelist">
+    	<thead>
+    	<tr>
+        <th><input name="" type="checkbox" value="" checked="checked"/></th>
+        <th >编号<i class="sort"><img src="images/px.gif" /></i></th>
+        <th>学生姓名</th>
+        <th>年龄</th>
+        <th>年级</th>
+        <th>班别</th>
+        <th>学号</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="stu:${students}" >
+        <td ><input name="" type="checkbox" value="" /></td>
+        <td  th:text="${stu.id}">20130908</td>
+        <td th:text="${stu.sname}">学生姓名</td>
+        <td th:text="${stu.age}">年龄</td>
+        <td th:text="${stu.bb}">班别</td>
+        <td th:text="${stu.nj}">年级</td>
+        <td th:text="${stu.sno}">学号 </td>
+        </tr>
+        </tbody>
+    </table>
+
+    </div>
+	</div>
+
+	<script type="text/javascript">
+      $("#usual1 ul").idTabs();
+    </script>
+
+    <script type="text/javascript">
+	$('.tablelist tbody tr:odd').addClass('odd');
+	</script>
+    </div>
+</body>
+</body>
+</html>

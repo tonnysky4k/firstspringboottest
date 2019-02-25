@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tonny.first.mapper.MenuMapper">
+    <resultMap id="menuType" type="com.tonny.first.dao.TMenu">
+        <id column="id" property="id" jdbcType="NUMERIC"/>
+        <result column="mname" property="name" jdbcType="VARCHAR"/>
+        <result column="pid" property="pid" jdbcType="NUMERIC"/>
+    </resultMap>
+    <select id="selectM1" resultType="com.tonny.first.dao.TMenu">
+        select * from tmenu where pid =0
+    </select>
+    <select id="selectM2" parameterType="Long" resultType="com.tonny.first.dao.TMenu">
+        select * from tmenu where pid =#{pid}
+    </select>
+    <insert id="insertMenu" parameterType="com.tonny.first.dao.TMenu" >
+        insert into tmenu(id,mname,pid)
+        values(#{id},#{mname},#{pid})
+    </insert>
+    <update id="updateMenu" parameterType="com.tonny.first.dao.TMenu">
+        update tmenu set mname=#{mname},pid=#{pid}
+        where id=#{id}
+    </update>
+
+</mapper>

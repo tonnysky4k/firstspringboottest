@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tonny.first.mapper.OptionMapper">
+    <resultMap id="optionResultMap" type="com.tonny.first.dao.Option">
+        <id property="id" column="id" />
+        <result property="sname" column="sname"/>
+        <result property="stype" column="stype"/>
+    </resultMap>
+    <select id="selectByType" parameterType="String" resultMap="optionResultMap">
+        select * from toption where stype=#{stype}
+    </select>
+</mapper>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tonny.first.mapper.StudentMapper">
+
+    <select id="selectAll" resultType="com.tonny.first.dao.Student">
+        select * from t_student
+    </select>
+    <select id="selectStudentById" parameterType="Long" resultType="com.tonny.first.dao.Student">
+        select  * from t_student where id=#{id}
+    </select>
+    <insert id="insertStudent" parameterType="com.tonny.first.dao.Student">
+        insert into t_student(id,sname,age,nj,bb,sno)
+        values(#{id,jdbcType=NUMERIC},#{sname,jdbcType=VARCHAR},#{age ,jdbcType=INTEGER},
+               #{nj,jdbcType=VARCHAR},#{bb,jdbcType=VARCHAR},#{sno,jdbcType=VARCHAR})
+    </insert>
+    <update id="updateStudent" parameterType="com.tonny.first.dao.Student">
+        update t_student set name=#{sname},age=#{age},nj=#{nj},bb=#{bb},sno=#{sno}
+        where id=#{id}
+    </update>
+    <delete id="deleteStudnet" parameterType="com.tonny.first.dao.Student">
+        delete from t_student where id=#{id}
+    </delete>
+
+</mapper>

@@ -1,0 +1,5 @@
+mail.smtp.service=smtp.qq.com
+mail.smtp.port=587
+mail.from.address=279253462@qq.com
+mail.from.smtp.pwd=vxlxjirlhemwbjed
+mail.from.nickname=taizi
